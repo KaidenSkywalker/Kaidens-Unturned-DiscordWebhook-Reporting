@@ -1,0 +1,24 @@
+// Made by KaidenArt
+
+configwebhookurl = "URL HERE";
+
+command report(argPlayer, reason){
+    permission = DiscordReport.report;
+    allowedCaller = "player";
+    execute(){
+        if(argPlayer == null)
+            return player.message("Player Name Required", "red");
+        refPlayer = argPlayer != null ? toPlayer(argPlayer) : player;
+		if(refPlayer == null)
+			return player.message("Player Not Found", "red");
+        if(reason == null)
+            return player.message("Reason Required", "red");
+        embed = discordEmbed();
+            embed.title = refPlayer.name;
+            embed.description = reason;
+            embed.footer.text = refPlayer.id;
+            embed.color = 16711680;
+        discord.sendEmbed(configwebhookurl, embed);
+        return player.message("<color=#ff0000>" + refPlayer.name + "</color> Successfully Reported", "green");
+    }
+}
